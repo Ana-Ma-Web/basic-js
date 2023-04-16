@@ -14,29 +14,42 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function createDreamTeam(members) {
-  throw new NotImplementedError('Not implemented');
+  // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
-  
-  // let resultStr = ''
-  // let resultArr = []
-  // console.dir(members)
-  
-  // // if (typeof members === 'array') {
-  //   members.forEach(e => {
-  //     let firstLetter = e[0].toUpperCase()
-  //     resultStr += firstLetter
-  //     if (typeof [0] === 'string' && firstLetter === e[0]) {
-  //       resultStr += '123'
-  //       // resultArr.push(e[0])
-  //       // resultStr += firstLetter
-  //     }
-  //   })
-  //   // resultArr.sort()
-  //   // resultArr.forEach(e => {
-  //   //   resultStr += e
-  //   // })
-  // // }
-  // return resultStr
+
+  let resultStr = ''
+  let resultArr = []
+  console.debug(members, 'start members')
+  if (!Array.isArray(members)) {
+    return false
+  }
+
+  // if (members && members.isArray()) {
+    members.forEach(e => {
+      if (typeof e === 'string') {
+
+        // console.debug(typeof e, 'eeeeeeeee trim')
+        let member = e.trim()
+        let firstLetter = member[0].toUpperCase()
+        // resultStr += firstLetter
+        resultArr.push(firstLetter)
+        // if (typeof [0] === 'string' && firstLetter === e[0]) {
+        if (firstLetter === e[0]) {
+          // resultStr += '123'
+          // resultArr.push(e[0])
+          // resultStr += firstLetter
+        }
+      }
+    })
+    resultArr.sort()
+    resultArr.forEach(e => {
+      resultStr += e
+    })
+    console.debug(resultStr)
+    return resultStr
+  // } else {
+    return false
+  // }
 }
 
 module.exports = {
