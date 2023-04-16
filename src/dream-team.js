@@ -19,25 +19,16 @@ function createDreamTeam(members) {
 
   let resultStr = ''
   let resultArr = []
-  console.debug(members, 'start members')
   if (!Array.isArray(members)) {
     return false
   }
 
-  // if (members && members.isArray()) {
     members.forEach(e => {
       if (typeof e === 'string') {
-
-        // console.debug(typeof e, 'eeeeeeeee trim')
         let member = e.trim()
         let firstLetter = member[0].toUpperCase()
-        // resultStr += firstLetter
         resultArr.push(firstLetter)
-        // if (typeof [0] === 'string' && firstLetter === e[0]) {
         if (firstLetter === e[0]) {
-          // resultStr += '123'
-          // resultArr.push(e[0])
-          // resultStr += firstLetter
         }
       }
     })
@@ -45,11 +36,7 @@ function createDreamTeam(members) {
     resultArr.forEach(e => {
       resultStr += e
     })
-    console.debug(resultStr)
     return resultStr
-  // } else {
-    return false
-  // }
 }
 
 module.exports = {
