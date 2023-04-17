@@ -98,22 +98,30 @@ class VigenereCipheringMachine {
   encrypt(message, keyWord) {
     // throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
-    let msgArr = message.toUpperCase().split('')
-    let key = this.createKeyMsg(message, keyWord)
+    if (typeof message === 'string' && typeof keyWord === 'string' && arguments.length === 2) {
+      let msgArr = message.toUpperCase().split('')
+      let key = this.createKeyMsg(message, keyWord)
 
-    // return this.printStrFromArr(this.printEncryptArr(msgArr, key))
-    return this.printEncryptArr(msgArr, key).join('')
+      // return this.printStrFromArr(this.printEncryptArr(msgArr, key))
+      return this.printEncryptArr(msgArr, key).join('')
+    } else {
+      throw new Error('Incorrect arguments!');
+    }
   }
   decrypt(message, keyWord) {
     // console.debug(message, 'start message');
     // console.debug(keyWord, 'start keyWord');
     // throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
-    let msgArr = message.toUpperCase().split('')
-    let key = this.createKeyMsg(message, keyWord)
+    if (typeof message === 'string' && typeof keyWord === 'string' && arguments.length === 2) {
+      let msgArr = message.toUpperCase().split('')
+      let key = this.createKeyMsg(message, keyWord)
+      // console.debug(message, 'message')
+      return this.printDecryptArr(msgArr, key).join('')
+    } else {
+      throw new Error('Incorrect arguments!');
+    }
 
-    // console.debug(message, 'message')
-    return this.printDecryptArr(msgArr, key).join('')
   }
 }
 
