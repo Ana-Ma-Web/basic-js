@@ -20,9 +20,8 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  constructor() {
-    // console.debug('------------START-----------')
-
+  constructor(direct = true) {
+    this.direct = direct
     this.tabulaRecta = []
     for (let i = 0; i < 26; i++) {
       this.tabulaRecta.push([])
@@ -34,7 +33,6 @@ class VigenereCipheringMachine {
         this.tabulaRecta[i].push(String.fromCharCode(n + i));
       }
     }
-    // console.debug(this.tabulaRecta[5 - 1][2 - 1])
   }
   createKeyMsg = (message, keyWord) => {
     let keyWordArr = keyWord.toUpperCase().split('')
@@ -65,59 +63,48 @@ class VigenereCipheringMachine {
     return resultArr
   }
   printDecryptArr = (msgArr, key) => {
-    // console.debug(msgArr, 'msgArr');
-    // console.debug(key, 'key');
-    // console.log(key, 'key');
     let resultArr = []
     for (let i = 0, k = 0; i < msgArr.length; i++) {
-      // const el = msgArr[i]
-      // const elCode = el.charCodeAt(0)
-      // const keyCode = key[k].charCodeAt(0)
       const curMsgLetter = msgArr[i]
       const codeCurMsgLetter = curMsgLetter.charCodeAt(0)
       const curKeyLetter = key[k]
       const codeCurKeyLetter = curKeyLetter.charCodeAt(0)
-      // console.log();
 
       const keyCode = this.tabulaRecta[codeCurKeyLetter - 65].indexOf(curMsgLetter) + 65
-      // console.log(codeCurKeyLetter - 65, 'codeCurKeyLetter - 65');
-      // console.log(keyCode, 'keyCode');
-      // console.log(curMsgLetter, 'curMsgLetter');
       if (keyCode < 65 || keyCode >= 91) {
         resultArr.push(curMsgLetter)
       } else {
-        // resultArr.push(this.tabulaRecta[keyCode - 65][keyCode - 65])
         resultArr.push(String.fromCharCode(keyCode))
         k++
       }
     }
-    // return ''
-    // console.debug(resultArr, 'resultArr')
     return resultArr
   }
   encrypt(message, keyWord) {
-    // throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
     if (typeof message === 'string' && typeof keyWord === 'string' && arguments.length === 2) {
       let msgArr = message.toUpperCase().split('')
       let key = this.createKeyMsg(message, keyWord)
 
-      // return this.printStrFromArr(this.printEncryptArr(msgArr, key))
-      return this.printEncryptArr(msgArr, key).join('')
+      let resultArr = this.printEncryptArr(msgArr, key)
+      if (this.direct) {
+        return resultArr.join('')
+      } else {
+        return resultArr.reverse().join("")
+      }
     } else {
       throw new Error('Incorrect arguments!');
     }
   }
   decrypt(message, keyWord) {
-    // console.debug(message, 'start message');
-    // console.debug(keyWord, 'start keyWord');
-    // throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
     if (typeof message === 'string' && typeof keyWord === 'string' && arguments.length === 2) {
       let msgArr = message.toUpperCase().split('')
       let key = this.createKeyMsg(message, keyWord)
-      // console.debug(message, 'message')
-      return this.printDecryptArr(msgArr, key).join('')
+      let resultArr = this.printDecryptArr(msgArr, key)
+      if (this.direct) {
+        return resultArr.join('')
+      } else {
+        return resultArr.reverse().join("")
+      }
     } else {
       throw new Error('Incorrect arguments!');
     }
